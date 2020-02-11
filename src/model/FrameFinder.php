@@ -258,28 +258,18 @@ class FrameFinder
     {
         $lineX = $polygon->x + 10;
 
-        // Идём сверху вниз
         for ($i = $polygon->y + $this->minimalFrameSizeHeight; $i < $polygon->ye - $this->minimalFrameSizeHeight; $i = $i + 1) {
-//        for ($i = 950; $i < 960; $i = $i + 1) {
 
-//            Находим точку фона
             if ($this->checkDotTone($lineX, $i)) {
-                // Находим центр в горизонтальном разделителе
 //                $horizontalDelimiterCenter = $this->findHorizontalDelimiterCenter($lineX, $i);
 
-                // Проверить
                 if ($i - $polygon->y < ($this->minimalFrameSizeHeight) || $polygon->ye - $i < ($this->minimalFrameSizeHeight)) {
                     continue;
                 }
 
-                // Двигаемся слева направо и смотрим, есть ли в точке цвет фона. Если их достаточно, возвращаем точку y
                 $horizontalDelimiterCenter = $this->filterHorizontalLine($i, $polygon->x + 50, $polygon->xe - 50);
 
-                // Если есть, запоминаем точку отступа от верха
                 if ($horizontalDelimiterCenter) {
-//                    imagefilledellipse($this->image, $lineX, $horizontalDelimiterCenter, 10, 10, imagecolorallocate($this->image, 255, 255, 255));
-
-                    // Разделяем полигон на два, продолжаем искать во втором
                     $this->splitPolygon($horizontalDelimiterCenter, $polygon, self::HORISONTAL_DIRECTION);
                     unset($this->horisontalSearchQueue[$polygon->id]);
 
@@ -626,7 +616,6 @@ class FrameFinder
         for ($i = $from; $i < $to; $i = $i + 1) {
             if ($this->checkDotTone($i, $y)) {
                 $delimiterDots[] = $i;
-//                imagefilledellipse($this->image, $i, $y, 10, 10, imagecolorallocate($this->image, 0, 0, 255));
             }
         }
         return $delimiterDots[(int)count($delimiterDots) / 2];
@@ -799,7 +788,6 @@ class FrameFinder
                     return;
 
                 }
-//                    imagefilledellipse($this->image, $i, $lineY, 10, 10, imagecolorallocate($this->image, 255, 0, 0));
             }
         }
 
