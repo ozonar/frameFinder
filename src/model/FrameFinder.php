@@ -748,9 +748,6 @@ class FrameFinder
         for ($i = $y; $i < $yn; $i = $i + $every) {
             if ($this->checkDotTone($verticalLine, $i)) {
                 $subHorizontalLines[] = $i;
-//                $this->addDotToQueue($verticalLine, $i, 0, 0, 255);
-            } else {
-                // TODO Пытаться двигаться левее или правее
             }
         }
         $verticalLinesCount[$verticalLine] = count($subHorizontalLines);
