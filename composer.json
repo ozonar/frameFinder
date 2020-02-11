@@ -6,7 +6,6 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=7.1.0",
-    "php-activerecord/php-activerecord": ">=1.2.0",
     "ext-gd": "*",
     "ext-json": "*",
     "symfony/templating": "*",
