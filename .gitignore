@@ -1,0 +1,8 @@
+.idea
+/vendor
+config.php
+/web/comix/
+/dev/work/
+/dev/backup/
+composer.lock
+web/Nginx-1.12_vhost.conf

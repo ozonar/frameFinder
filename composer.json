@@ -1,0 +1,15 @@
+{
+  "name": "ozonar/frameFinder",
+  "description": "Frame finder",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.1.0",
+    "php-activerecord/php-activerecord": ">=1.2.0",
+    "ext-gd": "*",
+    "ext-json": "*",
+    "symfony/templating": "*",
+    "aura/autoload": "^2.0"
+  }
+}
