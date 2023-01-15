@@ -3,19 +3,19 @@
 namespace FrameFinder;
 
 use FrameFinder\Models\Image;
-use FrameFinder\Models\PolygonList;
+use FrameFinder\Models\PolygonRepository;
 
 class Painter
 {
-    private PolygonList $polygonList;
+    private PolygonRepository $polygonRepository;
     private Image $image;
 
     const ALPHA = 75;
 
-    public function __construct(Image $image, $polygonList)
+    public function __construct(Image $image, $polygonRepository)
     {
         $this->image = $image;
-        $this->polygonList = $polygonList;
+        $this->polygonRepository = $polygonRepository;
     }
 
     public function paintImage(bool $paintPolygons = true): void
@@ -34,7 +34,7 @@ class Painter
     private function paintPolygonsOverImage(bool $paintPolygons, int $alpha): void
     {
         if ($paintPolygons) {
-            foreach ($this->polygonList->getList() as $polygon) {
+            foreach ($this->polygonRepository->getPolygons() as $polygon) {
                 $color = imagecolorallocatealpha(
                     $this->image->getGdImage(),
                     rand(0, 255),

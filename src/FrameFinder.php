@@ -8,7 +8,7 @@ use FrameFinder\Exceptions\LineBreakException;
 use FrameFinder\Models\Color;
 use FrameFinder\Models\FramePolygon;
 use FrameFinder\Models\Image;
-use FrameFinder\Models\PolygonList;
+use FrameFinder\Models\PolygonRepository;
 use FrameFinder\Models\Queue;
 
 class FrameFinder
@@ -20,18 +20,18 @@ class FrameFinder
 
     const FRAME_WIDTH = 5;
 
-    private PolygonList $polygonList;
+    private PolygonRepository $polygonRepository;
 
     public function __construct(Image $image)
     {
         $this->image = $image;
-        $this->polygonList = new PolygonList();
+        $this->polygonRepository = new PolygonRepository();
 
         $this->verticalSearchQueue = new Queue();
         $this->horisontalSearchQueue = new Queue();
     }
 
-    public function getFramesCoordinates(): PolygonList
+    public function getFramesCoordinates(): PolygonRepository
     {
         $this->createFirstPolygon();
 
@@ -39,7 +39,7 @@ class FrameFinder
             $this->resolveQueues();
         }
 
-        return $this->polygonList;
+        return $this->polygonRepository;
     }
 
     private function resolveQueues(): void
@@ -68,7 +68,7 @@ class FrameFinder
             $this->image->getHeight() - self::FRAME_WIDTH
         );
 
-        $this->polygonList->add($polygon);
+        $this->polygonRepository->add($polygon);
 
         $this->addPolygonsToSearchList($polygon, Direction::Horisontal);
         $this->addPolygonsToSearchList($polygon, Direction::Vertical);
@@ -158,7 +158,8 @@ class FrameFinder
                 $first = new FramePolygon($parentPolygon->x, $parentPolygon->y, $parentPolygon->xe, $delimeterCenter);
                 $second = new FramePolygon($parentPolygon->x, $delimeterCenter, $parentPolygon->xe, $parentPolygon->ye);
 
-                $this->polygonList->addGroup([$first, $second], $parentPolygon->id);
+                $this->polygonRepository->add($first, $parentPolygon->id);
+                $this->polygonRepository->add($second, $parentPolygon->id);
 
                 $this->addPolygonsToSearchList($first, Direction::Vertical);
                 $this->addPolygonsToSearchList($second, Direction::Vertical);
@@ -171,7 +172,8 @@ class FrameFinder
                 $first = new FramePolygon($parentPolygon->x, $parentPolygon->y, $delimeterCenter, $parentPolygon->ye);
                 $second = new FramePolygon($delimeterCenter, $parentPolygon->y, $parentPolygon->xe, $parentPolygon->ye);
 
-                $this->polygonList->addGroup([$first, $second], $parentPolygon->id);
+                $this->polygonRepository->add($first, $parentPolygon->id);
+                $this->polygonRepository->add($second, $parentPolygon->id);
 
                 $this->addPolygonsToSearchList($first, Direction::Horisontal);
                 $this->addPolygonsToSearchList($second, Direction::Horisontal);
