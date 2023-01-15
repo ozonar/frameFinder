@@ -180,7 +180,7 @@ class FrameFinder
 
                 break;
             default:
-                return;
+                break;
         }
 
 
