@@ -158,8 +158,7 @@ class FrameFinder
                 $first = new FramePolygon($parentPolygon->x, $parentPolygon->y, $parentPolygon->xe, $delimeterCenter);
                 $second = new FramePolygon($parentPolygon->x, $delimeterCenter, $parentPolygon->xe, $parentPolygon->ye);
 
-                $this->polygonList->add($first, $parentPolygon->id);
-                $this->polygonList->add($second, $parentPolygon->id);
+                $this->polygonList->addGroup([$first, $second], $parentPolygon->id);
 
                 $this->addPolygonsToSearchList($first, Direction::Vertical);
                 $this->addPolygonsToSearchList($second, Direction::Vertical);
@@ -172,8 +171,7 @@ class FrameFinder
                 $first = new FramePolygon($parentPolygon->x, $parentPolygon->y, $delimeterCenter, $parentPolygon->ye);
                 $second = new FramePolygon($delimeterCenter, $parentPolygon->y, $parentPolygon->xe, $parentPolygon->ye);
 
-                $this->polygonList->add($first, $parentPolygon->id);
-                $this->polygonList->add($second, $parentPolygon->id);
+                $this->polygonList->addGroup([$first, $second], $parentPolygon->id);
 
                 $this->addPolygonsToSearchList($first, Direction::Horisontal);
                 $this->addPolygonsToSearchList($second, Direction::Horisontal);

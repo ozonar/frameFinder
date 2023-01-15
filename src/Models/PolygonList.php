@@ -6,18 +6,23 @@ class PolygonList
 {
     private array $polygons = [];
 
-    public function add(FramePolygon $polygon, $parentId = null): void
+    public function add(FramePolygon $polygon): void
     {
         if (!isset($polygon->id)) {
             $polygon->id = $this->getNotExistId();
         }
 
-        if (!$parentId) {
-            $this->polygons[$polygon->id] = $polygon;
-        } else {
-            // TODO Add array only. This code overwrite previous polygon
-            $this->searchAndInsertPolygon($parentId, [$polygon]);
+        $this->polygons[$polygon->id] = $polygon;
+    }
+
+    public function addGroup(array $polygons, $parentId = null): void
+    {
+        foreach ($polygons as $polygon) {
+            $polygon->id = $this->getNotExistId();
+            $polygons[$polygon->id] = $polygon;
         }
+
+        $this->searchAndInsertPolygon($parentId, $polygons, $this->polygons);
     }
 
     public function getPolygons(): array
@@ -73,14 +78,8 @@ class PolygonList
         return $list;
     }
 
-    private function searchAndInsertPolygon(int $searchId, $insertedData = null, &$polygonList = null): FramePolygon
+    private function searchAndInsertPolygon(int $searchId, $insertedData = null, &$polygons = null)
     {
-        if ($polygonList) {
-            $polygons = $polygonList;
-        } else {
-            $polygons = $this->polygons;
-        }
-
         foreach ($polygons as $key => $polygon) {
             if (is_array($polygon)) {
                 $result = $this->searchAndInsertPolygon($searchId, $insertedData, $polygon);
