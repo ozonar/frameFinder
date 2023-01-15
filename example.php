@@ -1,12 +1,16 @@
 <?php
 
-use Model\FrameFinder;
+use FrameFinder\FrameFinder;
+use FrameFinder\ImageGrayScaler;
+use FrameFinder\Painter;
 
-$path = 'path/to/comix/page.webp';
+$path = 'path/to/comix/page.jpeg';
 
-$frameFinder = new FrameFinder();
-$image = $frameFinder->getImageByPath($path);
+$imagePreparer = new ImageGrayScaler($path);
+$image = $imagePreparer->getGrayScaledImage();
 
-$frameArray = $frameFinder->getFrameCoordinates();
+$frameFinder = new FrameFinder($image);
+$frameArray = $frameFinder->getFramesCoordinates();
 
-$frameFinder->paintImage($image);
+$painter = new Painter($image, $frameArray);
+$painter->paintImage();
