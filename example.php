@@ -6,7 +6,7 @@ use FrameFinder\FrameFinder;
 use FrameFinder\ImageGrayScaler;
 use FrameFinder\Painter;
 
-$path = 'path/to/comix/page.jpeg';
+$path = 'data/image.jpg';
 
 $imagePreparer = new ImageGrayScaler($path);
 $image = $imagePreparer->getGrayScaledImage();
