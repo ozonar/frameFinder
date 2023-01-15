@@ -1,14 +1,17 @@
 {
-  "name": "ozonar/frameFinder",
+  "name": "ozonar/frame-finder",
   "description": "Frame finder",
   "type": "project",
-  "license": "BSD-3-Clause",
+  "license": "proprietary",
   "minimum-stability": "stable",
   "require": {
-    "php": ">=7.1.0",
+    "php": ">=8.2",
     "ext-gd": "*",
-    "ext-json": "*",
-    "symfony/templating": "*",
-    "aura/autoload": "^2.0"
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "FrameFinder\\": "src/"
+    }
   }
 }
