@@ -8,7 +8,7 @@ class PolygonList
 
     public function add(FramePolygon $polygon, $parentId = null): void
     {
-        if (!$polygon->id) {
+        if (!isset($polygon->id)) {
             $polygon->id = $this->getNotExistId();
         }
 
