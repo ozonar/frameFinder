@@ -2,6 +2,8 @@
 
 namespace FrameFinder\Models;
 
+use FrameFinder\Exceptions\NoIdException;
+
 class PolygonList
 {
     private array $polygons = [];
@@ -17,8 +19,10 @@ class PolygonList
 
     public function addGroup(array $polygons, $parentId = null): void
     {
-        foreach ($polygons as $polygon) {
+        foreach ($polygons as $key => $polygon) {
             $polygon->id = $this->getNotExistId();
+
+            unset ($polygons[$key]);
             $polygons[$polygon->id] = $polygon;
         }
 
@@ -44,6 +48,7 @@ class PolygonList
     {
         return $this->getListOfPolygons($this->polygons, $unsetId);
     }
+
     /**
      * @param $polygons
      * @param int $unsetId
@@ -78,14 +83,19 @@ class PolygonList
         return $list;
     }
 
+    /**
+     * @throws NoIdException
+     */
     private function searchAndInsertPolygon(int $searchId, $insertedData = null, &$polygons = null)
     {
         foreach ($polygons as $key => $polygon) {
             if (is_array($polygon)) {
                 $result = $this->searchAndInsertPolygon($searchId, $insertedData, $polygon);
 
-                $polygons[$key] = $polygon;
-                return $result;
+                if ($result) {
+                    $polygons[$key] = $polygon;
+                    return $result;
+                }
             } else {
                 if ($polygon->id == $searchId) {
                     if ($insertedData) {
@@ -102,6 +112,6 @@ class PolygonList
             }
         }
 
-//        throw new NoIdException();
+        throw new NoIdException();
     }
 }
