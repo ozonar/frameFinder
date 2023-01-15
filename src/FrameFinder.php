@@ -133,16 +133,10 @@ class FrameFinder
         }
 
         foreach ($polygons as $polygon) {
-            switch ($direction) {
-                case Direction::Vertical:
-                    $this->verticalSearchQueue->addTask($polygon);
-                    break;
-                case Direction::Horisontal:
-                    $this->horisontalSearchQueue->addTask($polygon);
-                    break;
-                default:
-                    return;
-            }
+            match ($direction) {
+                Direction::Vertical => $this->verticalSearchQueue->addTask($polygon),
+                Direction::Horisontal => $this->horisontalSearchQueue->addTask($polygon),
+            };
         }
     }
 
