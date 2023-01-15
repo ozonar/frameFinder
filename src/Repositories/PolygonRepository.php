@@ -1,7 +1,8 @@
 <?php
 
-namespace FrameFinder\Models;
+namespace FrameFinder\Repositories;
 
+use FrameFinder\Models\FramePolygon;
 
 class PolygonRepository
 {

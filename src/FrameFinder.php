@@ -8,7 +8,7 @@ use FrameFinder\Exceptions\LineBreakException;
 use FrameFinder\Models\Color;
 use FrameFinder\Models\FramePolygon;
 use FrameFinder\Models\Image;
-use FrameFinder\Models\PolygonRepository;
+use FrameFinder\Repositories\PolygonRepository;
 use FrameFinder\Models\Queue;
 
 class FrameFinder

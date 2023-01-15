@@ -3,7 +3,7 @@
 namespace FrameFinder;
 
 use FrameFinder\Models\Image;
-use FrameFinder\Models\PolygonRepository;
+use FrameFinder\Repositories\PolygonRepository;
 
 class Painter
 {
