@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums;
+namespace FrameFinder\Enums;
 
 enum Direction
 {

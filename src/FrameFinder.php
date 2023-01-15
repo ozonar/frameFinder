@@ -3,7 +3,7 @@
 namespace FrameFinder;
 
 
-use App\Enums\Direction;
+use FrameFinder\Enums\Direction;
 use FrameFinder\Exceptions\LineBreakException;
 use FrameFinder\Models\Color;
 use FrameFinder\Models\FramePolygon;
