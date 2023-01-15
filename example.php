@@ -1,5 +1,7 @@
 <?php
 
+include_once "vendor/autoload.php";
+
 use FrameFinder\FrameFinder;
 use FrameFinder\ImageGrayScaler;
 use FrameFinder\Painter;
