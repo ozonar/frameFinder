@@ -34,7 +34,7 @@ class Painter
     private function paintPolygonsOverImage(bool $paintPolygons, int $alpha): void
     {
         if ($paintPolygons) {
-            foreach ($this->polygonList as $polygon) {
+            foreach ($this->polygonList->getList() as $polygon) {
                 $color = imagecolorallocatealpha(
                     $this->image->getGdImage(),
                     rand(0, 255),
